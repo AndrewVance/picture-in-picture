@@ -22,7 +22,7 @@ chrome.pageAction.onClicked.addListener(function(tab){
 
 	chrome.system.display.getInfo(function(info) {
 		//Adjust video dimensions to user's screen
-		var vidHeight = Math.round(info[0].bounds.height*screenCoverage);
+		var vidHeight = 60+Math.round(info[0].bounds.height*screenCoverage);
 		var vidWidth = Math.round(info[0].bounds.width*screenCoverage);
 
 		//Spit the active tab's url by watch?v=, the rest will be the vidID, possibly some other parameters
@@ -30,6 +30,9 @@ chrome.pageAction.onClicked.addListener(function(tab){
 
 		//Strip the rest of parameters if they exist
 		vidID = (vidID.split("&"))[0];
+
+		//Just lazily close the window cause I haven't figured out how to pause the video
+		chrome.tabs.remove(tab.id);
 
 		//Haphazardly throw a new window on screen that's the embedded video
 		//// TODO: So many things.
