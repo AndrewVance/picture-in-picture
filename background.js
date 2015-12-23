@@ -17,19 +17,24 @@ chrome.runtime.onInstalled.addListener(function()
 	});
 });
 
-chrome.pageAction.onClicked.addListener(function(){
-	chrome.tabs.query({active:true, currentWindow:true}, function(tabs) {
+chrome.pageAction.onClicked.addListener(function(tab){
+	var screenCoverage = 0.25;
+
+	chrome.system.display.getInfo(function(info) {
+		//Adjust video dimensions to user's screen
+		var vidHeight = Math.round(info[0].bounds.height*screenCoverage);
+		var vidWidth = Math.round(info[0].bounds.width*screenCoverage);
+
 		//Spit the active tab's url by watch?v=, the rest will be the vidID, possibly some other parameters
-		var vidID = (tabs[0].url.split("watch?v="))[1];
+		var vidID = (tab.url.split("watch?v="))[1];
 
 		//Strip the rest of parameters if they exist
 		vidID = (vidID.split("&"))[0];
 
-		//DEBUG
-		console.log(vidID);
-
 		//Haphazardly throw a new window on screen that's the embedded video
-		chrome.windows.create({url:'https://www.youtube.com/v/'+vidID+'&autoplay=1',height:600,width:900});
-	})
+		chrome.windows.create({url:'https://www.youtube.com/v/'+vidID+'&autoplay=1',height:vidHeight,width:vidWidth, type:"panel"});
+
+
+	});
 	
-})
+});

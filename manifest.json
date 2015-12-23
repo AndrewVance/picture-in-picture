@@ -18,6 +18,8 @@
 	"permissions":
 	[
 		"declarativeContent",
-		"tabs"
+		"activeTab",
+		"tabs",
+		"system.display"
 	]
 }
