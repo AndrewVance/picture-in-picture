@@ -17,10 +17,12 @@ chrome.runtime.onInstalled.addListener(function()
 	});
 });
 
-chrome.pageAction.onClicked.addListener(function(tab){
+chrome.pageAction.onClicked.addListener(function(tab)
+{
 	var screenCoverage = 0.25;
 
-	chrome.system.display.getInfo(function(info) {
+	chrome.system.display.getInfo(function(info) 
+	{
 		//Adjust video dimensions to user's screen
 		var vidHeight = 60+Math.round(info[0].bounds.height*screenCoverage);
 		var vidWidth = Math.round(info[0].bounds.width*screenCoverage);
