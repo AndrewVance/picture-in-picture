@@ -32,6 +32,10 @@ chrome.pageAction.onClicked.addListener(function(tab){
 		vidID = (vidID.split("&"))[0];
 
 		//Haphazardly throw a new window on screen that's the embedded video
+		//// TODO: So many things.
+		//// 1. Frameless window
+		//// 2. Get video ID straight from YT API instead of URL magic
+		//// 3. Resume play from user's position in video
 		chrome.windows.create({url:'https://www.youtube.com/v/'+vidID+'&autoplay=1',height:vidHeight,width:vidWidth, type:"panel"});
 
 
